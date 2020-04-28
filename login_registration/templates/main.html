@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Registration</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        body{
+            padding: 20px;
+        }
+        .input{
+            display: grid;
+            grid-template-columns: 55% auto;
+            grid-gap: 10px;
+            margin-top: 30px;
+        }
+        .input form{
+            display: grid;
+            grid-template-columns: 35% auto;
+            padding: 10px;
+            grid-row-gap: 10px;            
+            border: black solid 1px;
+            height: fit-content;
+        }
+        .input form label{
+            grid-column: 1;
+        }
+        .input form input{
+            grid-column: 2;
+        }
+        .input form h2{
+            grid-column: 1 /span 2;
+            margin: -40px 0 0 0;
+            background-color: white;
+            width: fit-content;
+            padding: 10px;
+        }
+        .input form p{
+            grid-column: 1 /span 2;
+        }
+        .input form button {
+            grid-column: 1 /span 2;
+            justify-self: end;
+            font-size: medium;
+            padding: 3px 5px 3px 5px;
+            width: fit-content;
+            box-shadow: 5px 5px black;
+            border-radius: 20%;
+        }
+        .alert{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome!</h1>
+    <div class="input">
+        <form action="/register" method="post">
+            {% csrf_token %}
+            <h2>Registration</h2>
+            <label for="name">Name:</label>
+            <input type="text" name="name" placeholder="{% for i in messages %} {% if 'name' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="{% for i in messages %} {% if 'username' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="{% for i in messages %} {% if 'password' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            <p>*Password should be a least 8 characters</p>
+            <label for="r_password">Confirm PW:</label>
+            <input type="password" name="r_password" placeholder="{% for i in messages %} {% if 'r_password' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            <button type="submit">Register</button>
+        </form>
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" name="l_username" placeholder="{% for i in messages %} {% if 'l_username' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            
+            <label for="password">Password:</label>
+            <input type="password" name="l_password" placeholder="{% for i in messages %} {% if 'l_password' == i.extra_tags %}{{i}}{% endif %}{% endfor %}">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    {% if messages %}
+    <div class="alert">
+        <h3>Error:</h3>
+        <p>Something went wrong! Please check your form again!</p>
+    </div>
+    {% endif %}
+</body>
+</html>

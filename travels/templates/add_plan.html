@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Plan</title>
+</head>
+<style>
+    *{
+            padding: 0;
+            margin: 0;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        body{
+            padding: 20px;
+        }
+    .input{
+        display: grid;
+        grid-template-columns: 20% auto 40%;
+        padding: 10px;
+        grid-row-gap: 10px;            
+    }
+    .input p{
+        grid-column: 3;
+        color:red;
+    }
+    .input button{
+        grid-column: 1/ span 2;
+        justify-self: end;
+        font-size: medium;
+        padding: 3px 5px 3px 5px;
+        width: fit-content;
+    }
+    .menu{
+            text-align: right;
+            margin: -40px 0 40px 0;
+        }
+</style>
+<body>
+    
+    <h1>Add a Trip</h1>
+    <p class="menu"><a href="/travels">Home</a> | <a href="/">Logout</a></p>
+    <form action="/travels/adding" method="post" class="input">
+        {% csrf_token %}
+        <label for="destination">Destination:</label>
+        <input type="text" name="destination">
+        <p>{% for i in messages %}{% if 'destination' == i.extra_tags %}{{i}}{% endif %}{% endfor %}</p>
+        <label for="desc">Description :</label>
+        <input type="text" name="desc">
+        <p>{% for i in messages %}{% if 'desc' == i.extra_tags %}{{i}}{% endif %}{% endfor %}</p>
+        <label for="date_start">Travel date from:</label>
+        <input type="date" name="date_start">
+        <p>{% for i in messages %}{% if 'date_start' == i.extra_tags %}{{i}}{% endif %}{% endfor %}</p>
+        <label for="date_start">Travel date to:</label>
+        <input type="date" name="date_end">
+        <p>{% for i in messages %}{% if 'date_end' == i.extra_tags %}{{i}}{% endif %}{% endfor %}</p>
+        <input type="hidden" name="user_id" value={{request.session.user.id}}>
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

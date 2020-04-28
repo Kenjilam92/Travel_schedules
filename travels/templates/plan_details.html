@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Plan</title>
+    <style>
+        *{
+                padding: 0;
+                margin: 0;
+                font-family: "Comic Sans MS", cursive, sans-serif;
+            }
+        body{
+            padding: 20px;
+        }
+        ul {
+            margin: 20px;
+        }
+        .creator{
+            margin-top: 20px;
+        }
+        .other{
+            margin-top: 20px;
+        }
+        .menu{
+            text-align: right;
+            margin-top: -30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{plan.destination}}</h1>
+    <p class="menu"><a href="/travels">Home</a> | <a href="/">Logout</a></p>
+    <div class="creator">
+        <p>Planed by: {{plan.creator.name}}</p>
+        <p>Description: {{plan.desc}}</p>
+        <p>Travel Date From: {{plan.date_start}}</p>
+        <p>Travel Date To: {{plan.date_end}}</p>
+    </div>
+    <div class="other">
+        <b>Other Users' joining the trip:</b>
+        <ul>
+            {% for i in plan.passengers.all %}
+                {% if i.name != plan.creator.name %}
+            <li>{{i.name}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
